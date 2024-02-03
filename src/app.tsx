@@ -8,7 +8,6 @@ const mainCSS = css`
   align-items: center;
   justify-content: center;
   height: 100dvh;
-  height: 100vh;
 `;
 
 const actionsCSS = css`
