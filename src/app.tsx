@@ -22,7 +22,7 @@ const starProjectButtonCSS = css`
   align-items: center;
   justify-content: center;
   gap: 6px;
-`
+`;
 
 export const Welcome = () => {
   Howler.stop();
@@ -34,28 +34,15 @@ export const Welcome = () => {
 
         <div className={actionsCSS}>
           <StartGameButton />
-          <Link
+          <a
             className={`nes-btn ${starProjectButtonCSS}`}
             href="https://github.com/martinval11/type-fall"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <svg
-              width={28}
-              height={28}
-              viewBox="0 0 48 48"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M18 4h-8v4H6v4H2v12h4v4h4v4h4v4h4v4h4v4h4v-4h4v-4h4v-4h4v-4h4v-4h4V12h-4V8h-4V4h-8v4h-4v4h-4V8h-4V4Zm0 4v4h4v4h4v-4h4V8h8v4h4v12h-4v4h-4v4h-4v4h-4v4h-4v-4h-4v-4h-4v-4h-4v-4H6V12h4V8h8Z"
-                fill="currentColor"
-              ></path>
-            </svg>
+            <i class="nes-icon github"></i>
             Star project on GitHub
-          </Link>
+          </a>
         </div>
       </main>
     </div>

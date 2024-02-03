@@ -8,6 +8,8 @@ export const healthBarContainerCSS = css`
   display: flex;
   gap: 8px;
   user-select: none;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 export const healthBarCSS = css`

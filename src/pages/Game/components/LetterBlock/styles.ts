@@ -12,6 +12,7 @@ export const letterBoxCSS = css`
   transition: all 0.2s;
   position: relative;
   user-select: none;
+  z-index: 1;
 
   @keyframes down {
     0% {
