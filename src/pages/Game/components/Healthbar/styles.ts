@@ -9,7 +9,7 @@ export const healthBarContainerCSS = css`
   gap: 8px;
   user-select: none;
   z-index: 5;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
 `;
 
 export const healthBarCSS = css`
