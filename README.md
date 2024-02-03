@@ -46,7 +46,7 @@ git clone https://github.com/martinval11/type-fall
 2. Change to the project directory:
 
 ```sh
-cd palette-helper
+cd type-fall
 ```
 
 3. Install the dependencies:
