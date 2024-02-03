@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'preact/hooks';
 import { useLocation } from 'wouter';
 
-import { dialogCSS } from './styles';
+import { dialogActionsCSS, dialogCSS, dialogContentCSS } from './styles';
 
 export const Paused = ({
   paused,
@@ -29,13 +29,13 @@ export const Paused = ({
   return (
     <dialog
       open={paused}
-      className={`${dialogCSS} nes-dialog`}
+      className={`${dialogCSS}`}
       id="dialog-default"
     >
-      <div>
+      <div className={`${dialogContentCSS} nes-dialog`}>
         <h1>Paused</h1>
 
-        <div>
+        <div className={dialogActionsCSS}>
           <button
             className="nes-btn is-primary"
             onClick={() => setPaused(false)}
