@@ -1,6 +1,6 @@
 import { css } from '@linaria/core';
-import { Link } from 'wouter';
 import { Howler } from 'howler';
+
 import { StartGameButton } from './startGameButton';
 
 const mainCSS = css`
