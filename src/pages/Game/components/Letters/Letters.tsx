@@ -20,8 +20,10 @@ const randomInitialLetters = shuffleArray(initialLetters);
 
 export const Letters = ({
   setHealthAmount,
+  attempts,
 }: {
   setHealthAmount: (health: number) => void;
+  attempts: number;
 }) => {
   const [lettersList, setLettersList]: [Letter[], any] = useState(
     randomInitialLetters.slice(0, 5)
@@ -87,6 +89,25 @@ export const Letters = ({
     };
   }, [handleKeyDown]);
 
+  // If user wants to retry, reset the game
+  useEffect(() => {
+    if (attempts !== 0) {
+      setLettersList([]);
+      setScore(0);
+
+      setFirstTime(20);
+      setSecondTime(35);
+
+      setIndexEnd(5);
+
+      setDownTimes(getRandomDownTimes(15, 35));
+
+      setTimeout(() => {
+        setLettersList(randomInitialLetters.slice(0, 5));
+      }, 200);
+    }
+  }, [attempts]);
+
   return (
     <section>
       <span className={scoreCSS}>Score: {score}</span>
@@ -95,21 +116,22 @@ export const Letters = ({
         tabIndex={0}
         onKeyDown={(event) => event.preventDefault()}
       >
-        {!paused &&
-          lettersList.map((letter: Letter, index: number) => (
-            <LetterBlock
-              onClick={(event: MouseEvent) => {
-                const element = event.target as HTMLDivElement;
-                hitLetter(element.id);
-              }}
-              letter={letter.letter}
-              duration={downTimes[index]}
-              key={letter.letter}
-              hit={letter.hit}
-              setHealth={setHealthAmount}
-              frozen={paused}
-            />
-          ))}
+        {!paused
+          ? lettersList.map((letter: Letter, index: number) => (
+              <LetterBlock
+                onClick={(event: MouseEvent) => {
+                  const element = event.target as HTMLDivElement;
+                  hitLetter(element.id);
+                }}
+                letter={letter.letter}
+                duration={downTimes[index]}
+                key={letter.letter}
+                hit={letter.hit}
+                setHealth={setHealthAmount}
+                frozen={paused}
+              />
+            ))
+          : null}
       </div>
 
       {paused && <Paused paused={paused} setPaused={setPaused} />}

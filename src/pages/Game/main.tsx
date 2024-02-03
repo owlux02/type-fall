@@ -1,12 +1,15 @@
+import { useState, useEffect, useCallback } from 'react';
+import { Howl } from 'howler';
+import { useLocation } from 'wouter';
+
 import { HealthBar } from './components/Healthbar/Healthbar';
 import { Letters } from './components/Letters/Letters';
-import { useState, useEffect, useCallback } from 'react';
-
-import { Howl } from 'howler';
 
 export const Game = () => {
   const [health, setHealthAmount] = useState(100);
   const [playing, setPlaying] = useState(false);
+  const [, setLocation] = useLocation();
+  const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     if (health <= 0) {
@@ -15,9 +18,10 @@ export const Game = () => {
       );
 
       if (playAgain) {
-        window.location.reload();
+        setAttempts(attempts + 1);
+        setHealthAmount(100);
       } else {
-        window.location.href = '/';
+        setLocation('/');
       }
     }
   }, [health]);
@@ -42,8 +46,8 @@ export const Game = () => {
 
   return (
     <>
-      <Letters setHealthAmount={setHealthAmount} />
+      <Letters setHealthAmount={setHealthAmount} attempts={attempts} />
       <HealthBar health={health} />
     </>
   );
-}
+};

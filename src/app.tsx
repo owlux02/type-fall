@@ -1,5 +1,6 @@
 import { css } from '@linaria/core';
 import { Link } from 'wouter';
+import { Howler } from 'howler';
 import { StartGameButton } from './startGameButton';
 
 const mainCSS = css`
@@ -17,6 +18,8 @@ const actionsCSS = css`
 `;
 
 export const Welcome = () => {
+  Howler.stop();
+
   return (
     <div className={mainCSS}>
       <main className="container nes-container is-centered is-dark">

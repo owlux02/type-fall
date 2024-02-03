@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'preact/hooks';
+import { useLocation } from 'wouter';
 
 import { dialogCSS } from './styles';
 
@@ -9,6 +10,8 @@ export const Paused = ({
   paused: boolean;
   setPaused: (value: boolean) => void;
 }) => {
+  const [, setLocation] = useLocation();
+
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setPaused(false);
@@ -39,7 +42,7 @@ export const Paused = ({
           >
             Continue Playing
           </button>
-          <button className="nes-btn is-error" onClick={() => window.location.href = '/'}>
+          <button className="nes-btn is-error" onClick={() => setLocation('/')}>
             Quit
           </button>
         </div>

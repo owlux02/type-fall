@@ -30,7 +30,7 @@ export const LetterBlock = ({
 
       if (currentPosition.bottom > 600 && health > 0) {
         health -= 2;
-        playSoundEffect('lost-of-life.mp3', 0.2);
+        playSoundEffect('lost-of-life.mp3', 0.03);
 
         setHealth(health);
       }
