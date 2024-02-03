@@ -16,8 +16,6 @@ const getRandomDownTimes = (min: number, max: number): number[] => {
   );
 };
 
-const randomInitialLetters = shuffleArray(initialLetters);
-
 export const Letters = ({
   setHealthAmount,
   attempts,
@@ -26,7 +24,7 @@ export const Letters = ({
   attempts: number;
 }) => {
   const [lettersList, setLettersList]: [Letter[], any] = useState(
-    randomInitialLetters.slice(0, 5)
+    shuffleArray(initialLetters.slice(0, 5))
   );
   const [downTimes, setDownTimes] = useState(getRandomDownTimes(15, 35));
   const [score, setScore] = useState(0);
@@ -35,7 +33,7 @@ export const Letters = ({
   const [firstTime, setFirstTime] = useState(20);
   const [secondTime, setSecondTime] = useState(35);
 
-  const [indexStart] = useState(0);
+  const [indexStart, setIndexStart] = useState(0);
   const [indexEnd, setIndexEnd] = useState(5);
 
   const hitLetter = (hitLetter: string) => {
@@ -58,12 +56,19 @@ export const Letters = ({
         setSecondTime((prevTime) => (prevTime <= 0 ? 4 : prevTime - 1));
 
         setIndexEnd((prevIndex) =>
-          prevIndex >= 5 ? prevIndex + 1 : prevIndex
+          prevIndex >= 5
+            ? prevIndex + 1 + Math.floor(Math.random() * 4)
+            : prevIndex
+        );
+        setIndexStart((prevIndex) =>
+          prevIndex <= 0 ? 0 : indexEnd - 2 + Math.floor(Math.random() * 4)
         );
 
         setLettersList([]);
         setTimeout(() => {
-          setLettersList(randomInitialLetters.slice(indexStart, indexEnd));
+          setLettersList(
+            shuffleArray(initialLetters.slice(indexStart, indexEnd))
+          );
           setDownTimes(getRandomDownTimes(firstTime, secondTime));
         }, 200);
       }
@@ -103,7 +108,7 @@ export const Letters = ({
       setDownTimes(getRandomDownTimes(15, 35));
 
       setTimeout(() => {
-        setLettersList(randomInitialLetters.slice(0, 5));
+        setLettersList(shuffleArray(initialLetters.slice(0, 5)));
       }, 200);
     }
   }, [attempts]);
