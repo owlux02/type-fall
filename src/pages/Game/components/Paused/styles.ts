@@ -25,3 +25,13 @@ export const dialogActionsCSS = css`
   display: flex;
   flex-direction: column;
 `
+export const pauseBtnCSS = css`
+  background: rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px #000;
+  color: #fff;
+  outline: none;
+  border: none;
+  box-shadow: inset 2px -2px #999;
+  z-index: 5;
+  padding: 4px;
+`

@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'preact/hooks';
 import { useLocation } from 'wouter';
 
-import { dialogActionsCSS, dialogCSS, dialogContentCSS } from './styles';
+import { dialogActionsCSS, dialogCSS, dialogContentCSS, pauseBtnCSS } from './styles';
 
 export const Paused = ({
   paused,
@@ -25,28 +25,32 @@ export const Paused = ({
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleKeyDown]);
-
   return (
-    <dialog
-      open={paused}
-      className={`${dialogCSS}`}
-      id="dialog-default"
-    >
-      <div className={`${dialogContentCSS} nes-dialog`}>
-        <h1>Paused</h1>
+    <>
+      <button onClick={() => setPaused(true)} className={pauseBtnCSS}>{'||'}</button>
 
-        <div className={dialogActionsCSS}>
-          <button
-            className="nes-btn is-primary"
-            onClick={() => setPaused(false)}
-          >
-            Continue Playing
-          </button>
-          <button className="nes-btn is-error" onClick={() => setLocation('/')}>
-            Quit
-          </button>
-        </div>
-      </div>
-    </dialog>
+      {paused && (
+        <dialog className={`${dialogCSS}`} id="dialog-default">
+          <div className={`${dialogContentCSS} nes-dialog`}>
+            <h1>Paused</h1>
+
+            <div className={dialogActionsCSS}>
+              <button
+                className="nes-btn is-primary"
+                onClick={() => setPaused(false)}
+              >
+                Continue Playing
+              </button>
+              <button
+                className="nes-btn is-error"
+                onClick={() => setLocation('/')}
+              >
+                Quit
+              </button>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </>
   );
 };

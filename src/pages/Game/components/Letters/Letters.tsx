@@ -7,7 +7,7 @@ import { Paused } from '../Paused/Paused';
 import { shuffleArray } from '../../lib/shuffleArray';
 import { playSoundEffect } from '../../lib/playSoundEffect';
 
-import { scoreCSS, letterBoxContainerCSS } from '../Letters/styles';
+import { scoreCSS, letterBoxContainerCSS, dataActionsCSS } from '../Letters/styles';
 import { Letter } from './types';
 
 const getRandomDownTimes = (min: number, max: number): number[] => {
@@ -78,7 +78,7 @@ export const Letters = ({
   };
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && !paused) {
       setPaused(true);
       return;
     }
@@ -115,7 +115,12 @@ export const Letters = ({
 
   return (
     <section>
-      <span className={scoreCSS}>Score: {score}</span>
+      <header className={dataActionsCSS}>
+        <span className={scoreCSS}>Score: {score}</span>
+
+        <Paused paused={paused} setPaused={setPaused} />
+      </header>
+
       <div
         className={letterBoxContainerCSS}
         tabIndex={0}
@@ -138,8 +143,6 @@ export const Letters = ({
             ))
           : null}
       </div>
-
-      {paused && <Paused paused={paused} setPaused={setPaused} />}
     </section>
   );
 };
