@@ -9,7 +9,7 @@
 </p>
 <p align="left">
 	<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=default&logo=TypeScript&logoColor=white" alt="TypeScript">
-    <img src="https://img.shields.io/badge/Preact-61DAFB.svg?style=default&logo=Preact&logoColor=black" alt="Preact">
+    <img src="https://img.shields.io/badge/Preact-C461FB.svg?style=default&logo=Preact&logoColor=black" alt="Preact">
 </p>
 <hr>
 
