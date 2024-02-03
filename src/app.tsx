@@ -1,7 +1,6 @@
 import { css } from '@linaria/core';
-import { useEffect } from 'preact/hooks';
 import { Link } from 'wouter';
-import {StartGameButton} from './startGameButton';
+import { StartGameButton } from './startGameButton';
 
 const mainCSS = css`
   display: flex;

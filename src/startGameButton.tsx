@@ -22,6 +22,7 @@ export const StartGameButton = () => {
       startGameButton?.removeEventListener('mouseenter', handleMouseEnter);
     };
   }, []);
+
   return (
     <Link className="nes-btn is-primary" href="/game" id="startGameButton">
       Start game
