@@ -17,7 +17,7 @@
 
 > - [🚀 Getting Started](#-getting-started)
 >   - [⚙️ Installation](#️-installation)
->   - [🤖 Running Type Fall](#🤖-running-type-fall)
+>   - [🤖 Running Type Fall](#-running-type-fall)
 > - [🤝 Contributing](#-contributing)
 > - [📄 License](#-license)
 
