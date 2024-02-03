@@ -1,5 +1,7 @@
 import { css } from '@linaria/core';
+import { useEffect } from 'preact/hooks';
 import { Link } from 'wouter';
+import {StartGameButton} from './startGameButton';
 
 const mainCSS = css`
   display: flex;
@@ -22,9 +24,7 @@ export const Welcome = () => {
         <h1>Welcome to Type Fall</h1>
 
         <div className={actionsCSS}>
-          <Link className="nes-btn is-primary" to="/game">
-            Start game
-          </Link>
+          <StartGameButton />
           <Link
             className="nes-btn"
             href="https://github.com/martinval11/type-fall"
@@ -37,5 +37,4 @@ export const Welcome = () => {
       </main>
     </div>
   );
-}
-
+};

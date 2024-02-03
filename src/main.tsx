@@ -4,7 +4,7 @@ import { Route } from 'wouter';
 import { Welcome } from './app.tsx';
 import { Game } from './pages/Game/main.tsx';
 
-import './index.css';
+import './css/index.css';
 
 render( 
   <>
