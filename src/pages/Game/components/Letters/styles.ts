@@ -1,5 +1,10 @@
 import { css } from '@linaria/core';
 
+export const containerCSS = css`
+  min-height: 100vh;
+  overflow: hidden;
+`
+
 export const letterBoxContainerCSS = css`
   display: flex;
   justify-content: space-between;

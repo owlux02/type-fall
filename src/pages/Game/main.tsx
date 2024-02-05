@@ -1,28 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Howl } from 'howler';
-import { useLocation } from 'wouter';
 
 import { HealthBar } from './components/Healthbar/Healthbar';
 import { Letters } from './components/Letters/Letters';
+import { GameOver } from './components/GameOver/GameOver';
 
 export const Game = () => {
   const [health, setHealthAmount] = useState(100);
   const [playing, setPlaying] = useState(false);
-  const [, setLocation] = useLocation();
+  const [gameOver, setGameOver] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
     if (health <= 0) {
-      const playAgain = window.confirm(
-        'Game over, would you like to play again?'
-      );
-
-      if (playAgain) {
-        setAttempts(attempts + 1);
-        setHealthAmount(100);
-      } else {
-        setLocation('/');
-      }
+      setGameOver(true);
     }
   }, [health]);
 
@@ -47,7 +38,17 @@ export const Game = () => {
   return (
     <>
       <Letters setHealthAmount={setHealthAmount} attempts={attempts} />
-      <HealthBar health={health} />
+      {gameOver ? (
+        <GameOver
+          tryAgain={() => {
+            setAttempts(attempts + 1);
+            setHealthAmount(100);
+            setGameOver(false);
+          }}
+        />
+      ) : (
+        <HealthBar health={health} />
+      )}
     </>
   );
 };

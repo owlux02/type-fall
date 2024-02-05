@@ -7,7 +7,7 @@ import { Paused } from '../Paused/Paused';
 import { shuffleArray } from '../../lib/shuffleArray';
 import { playSoundEffect } from '../../lib/playSoundEffect';
 
-import { scoreCSS, letterBoxContainerCSS, dataActionsCSS } from '../Letters/styles';
+import { scoreCSS, letterBoxContainerCSS, dataActionsCSS, containerCSS } from '../Letters/styles';
 import { Letter } from './types';
 
 const getRandomDownTimes = (min: number, max: number): number[] => {
@@ -114,7 +114,7 @@ export const Letters = ({
   }, [attempts]);
 
   return (
-    <section>
+    <section className={containerCSS}>
       <header className={dataActionsCSS}>
         <span className={scoreCSS}>Score: {score}</span>
 
