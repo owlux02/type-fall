@@ -7,33 +7,36 @@ export const LetterBlock = ({
   letter,
   duration,
   hit,
-  setHealth,
   frozen,
+  isDown,
   onClick,
+  health,
 }: {
   letter: string;
   duration: number;
   hit: boolean;
-  setHealth: (health: number) => void;
   frozen: boolean;
+  isDown: (down: number) => void;
   onClick: (event: MouseEvent) => void;
+  health: number;
 }) => {
-  const letterBlockRef = useRef<HTMLDivElement>(null);
+  const letterBlockRef = useRef<HTMLButtonElement>(null);
 
-  let health = 100;
-
+  let timesDown = 0;
   const handleAnimationFrame = () => {
     const letter = letterBlockRef.current;
+    const currentPosition = letter?.getBoundingClientRect();
 
-    if (letter) {
-      const currentPosition = letter.getBoundingClientRect();
+    if (currentPosition && currentPosition.bottom >= (window.innerHeight + 10) && health > 0) {
+      playSoundEffect('lost-of-life.mp3', 0.03);
 
-      if (currentPosition.bottom > 600 && health > 0) {
-        health -= 2;
-        playSoundEffect('lost-of-life.mp3', 0.03);
+      setTimeout(() => {
+        letter!.style.animation = `explode linear  0.25s`;
+        letter!.style.opacity = '0';
+      }, 200);
 
-        setHealth(health);
-      }
+      isDown(timesDown + 1);
+      timesDown += 1;
     }
 
     requestAnimationFrame(handleAnimationFrame);
@@ -44,7 +47,7 @@ export const LetterBlock = ({
   }, []);
 
   return (
-    <div
+    <button
       onClick={onClick}
       ref={letterBlockRef}
       id={letter}
@@ -61,6 +64,6 @@ export const LetterBlock = ({
       }}
     >
       {letter}
-    </div>
+    </button>
   );
 };

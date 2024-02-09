@@ -7,26 +7,29 @@ import { Paused } from '../Paused/Paused';
 import { shuffleArray } from '../../lib/shuffleArray';
 import { playSoundEffect } from '../../lib/playSoundEffect';
 
-import { scoreCSS, letterBoxContainerCSS, dataActionsCSS, containerCSS } from '../Letters/styles';
+import {
+  scoreCSS,
+  letterBoxContainerCSS,
+  dataActionsCSS,
+  containerCSS,
+} from '../Letters/styles';
 import { Letter } from './types';
-
-const getRandomDownTimes = (min: number, max: number): number[] => {
-  return initialLetters.map(() =>
-    Math.round(Math.random() * (max - min) + min)
-  );
-};
+import { getRandomDownTimes } from '../../lib/randomDownTimes';
 
 export const Letters = ({
+  health,
   setHealthAmount,
   attempts,
 }: {
+  health: number;
   setHealthAmount: (health: number) => void;
   attempts: number;
 }) => {
+  const [timesDown, setTimesDown] = useState(0);
   const [lettersList, setLettersList]: [Letter[], any] = useState(
     shuffleArray(initialLetters.slice(0, 5))
   );
-  const [downTimes, setDownTimes] = useState(getRandomDownTimes(15, 35));
+  const [downTimes, setDownTimes] = useState(getRandomDownTimes(15, 35, initialLetters));
   const [score, setScore] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -39,16 +42,14 @@ export const Letters = ({
   const hitLetter = (hitLetter: string) => {
     setLettersList((prevLettersList: Letter[]) => {
       const updatedLetters = prevLettersList.map((letter: Letter) => {
-        if (letter.letter === hitLetter) {
-          playSoundEffect('hit.mp3', 0.5);
-
-          if (!letter.hit) {
-            setScore((prevScore: number) => prevScore + 1);
-          }
-
-          return { ...letter, hit: true };
+        if (letter.letter !== hitLetter || letter.hit) {
+          return letter;
         }
-        return letter;
+
+        playSoundEffect('hit.mp3', 0.5);
+        setScore((prevScore: number) => prevScore + 1);
+
+        return { ...letter, hit: true };
       });
 
       if (updatedLetters.every((letter: Letter) => letter.hit)) {
@@ -69,8 +70,8 @@ export const Letters = ({
           setLettersList(
             shuffleArray(initialLetters.slice(indexStart, indexEnd))
           );
-          setDownTimes(getRandomDownTimes(firstTime, secondTime));
-        }, 200);
+          setDownTimes(getRandomDownTimes(firstTime, secondTime, initialLetters));
+        }, 800);
       }
 
       return updatedLetters;
@@ -82,7 +83,6 @@ export const Letters = ({
       setPaused(true);
       return;
     }
-
     hitLetter(event.key);
   };
 
@@ -105,13 +105,23 @@ export const Letters = ({
 
       setIndexEnd(5);
 
-      setDownTimes(getRandomDownTimes(15, 35));
+      setDownTimes(getRandomDownTimes(15, 35, initialLetters));
 
       setTimeout(() => {
         setLettersList(shuffleArray(initialLetters.slice(0, 5)));
       }, 200);
     }
   }, [attempts]);
+
+  useEffect(() => {
+    setHealthAmount(health - 2)
+
+    console.log(lettersList)
+
+    if (health > 0 && lettersList.every((letter: Letter) => letter.hit === false)) {
+      console.log('mas 100 de vida y hit false')
+    }
+  }, [timesDown])
 
   return (
     <section className={containerCSS}>
@@ -126,22 +136,21 @@ export const Letters = ({
         tabIndex={0}
         onKeyDown={(event) => event.preventDefault()}
       >
-        {!paused
-          ? lettersList.map((letter: Letter, index: number) => (
-              <LetterBlock
-                onClick={(event: MouseEvent) => {
-                  const element = event.target as HTMLDivElement;
-                  hitLetter(element.id);
-                }}
-                letter={letter.letter}
-                duration={downTimes[index]}
-                key={letter.letter}
-                hit={letter.hit}
-                setHealth={setHealthAmount}
-                frozen={paused}
-              />
-            ))
-          : null}
+        {!paused && lettersList.map((letter: Letter, index: number) => (
+          <LetterBlock
+            health={health}
+            onClick={(event: MouseEvent) => {
+              const element = event.target as HTMLDivElement;
+              hitLetter(element.id);
+            }}
+            letter={letter.letter}
+            duration={downTimes[index]}
+            key={letter.letter}
+            hit={letter.hit}
+            isDown={setTimesDown}
+            frozen={paused}
+          />
+        ))}
       </div>
     </section>
   );

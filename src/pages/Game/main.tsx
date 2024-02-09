@@ -11,12 +11,6 @@ export const Game = () => {
   const [gameOver, setGameOver] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
-  useEffect(() => {
-    if (health <= 0) {
-      setGameOver(true);
-    }
-  }, [health]);
-
   const playMusic = useCallback(() => {
     const sound = new Howl({
       src: ['bgmusic.mp3'],
@@ -30,14 +24,18 @@ export const Game = () => {
   }, []);
 
   useEffect(() => {
+    if (health <= 0) {
+      setGameOver(true);
+    }
+
     if (!playing) {
       playMusic();
     }
-  }, [playMusic]);
+  }, [playMusic, health]);
 
   return (
     <>
-      <Letters setHealthAmount={setHealthAmount} attempts={attempts} />
+      <Letters health={health} setHealthAmount={setHealthAmount} attempts={attempts} />
       {gameOver ? (
         <GameOver
           tryAgain={() => {
