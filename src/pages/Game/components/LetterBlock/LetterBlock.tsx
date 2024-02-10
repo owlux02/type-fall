@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'preact/compat';
-
 import { letterBoxCSS } from './styles';
-import { playSoundEffect } from '../../lib/playSoundEffect';
 
 export const LetterBlock = ({
   letter,
@@ -22,21 +20,13 @@ export const LetterBlock = ({
 }) => {
   const letterBlockRef = useRef<HTMLButtonElement>(null);
 
-  let timesDown = 0;
   const handleAnimationFrame = () => {
     const letter = letterBlockRef.current;
     const currentPosition = letter?.getBoundingClientRect();
 
     if (currentPosition && currentPosition.bottom >= (window.innerHeight + 10) && health > 0) {
-      playSoundEffect('lost-of-life.mp3', 0.03);
-
-      setTimeout(() => {
-        letter!.style.animation = `explode linear  0.25s`;
-        letter!.style.opacity = '0';
-      }, 200);
-
-      isDown(timesDown + 1);
-      timesDown += 1;
+      isDown(Math.random());
+      letter?.click();
     }
 
     requestAnimationFrame(handleAnimationFrame);

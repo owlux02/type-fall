@@ -13,8 +13,8 @@ import {
   dataActionsCSS,
   containerCSS,
 } from '../Letters/styles';
-import { Letter } from './types';
 import { getRandomDownTimes } from '../../lib/randomDownTimes';
+import { Letter } from './types';
 
 export const Letters = ({
   health,
@@ -26,6 +26,7 @@ export const Letters = ({
   attempts: number;
 }) => {
   const [timesDown, setTimesDown] = useState(0);
+
   const [lettersList, setLettersList]: [Letter[], any] = useState(
     shuffleArray(initialLetters.slice(0, 5))
   );
@@ -46,7 +47,6 @@ export const Letters = ({
           return letter;
         }
 
-        playSoundEffect('hit.mp3', 0.5);
         setScore((prevScore: number) => prevScore + 1);
 
         return { ...letter, hit: true };
@@ -84,6 +84,7 @@ export const Letters = ({
       return;
     }
     hitLetter(event.key);
+    playSoundEffect('hit.mp3', 0.5);
   };
 
   useEffect(() => {
@@ -114,12 +115,9 @@ export const Letters = ({
   }, [attempts]);
 
   useEffect(() => {
-    setHealthAmount(health - 2)
-
-    console.log(lettersList)
-
-    if (health > 0 && lettersList.every((letter: Letter) => letter.hit === false)) {
-      console.log('mas 100 de vida y hit false')
+    if (timesDown) {
+      setHealthAmount(health - 10);
+      playSoundEffect('lost-of-life.mp3', 0.5);
     }
   }, [timesDown])
 
@@ -141,6 +139,7 @@ export const Letters = ({
             health={health}
             onClick={(event: MouseEvent) => {
               const element = event.target as HTMLDivElement;
+              playSoundEffect('hit.mp3', 0.5);
               hitLetter(element.id);
             }}
             letter={letter.letter}

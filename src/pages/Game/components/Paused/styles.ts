@@ -34,4 +34,5 @@ export const pauseBtnCSS = css`
   box-shadow: inset 2px -2px #999;
   z-index: 5;
   padding: 4px;
+  user-select: none;
 `
