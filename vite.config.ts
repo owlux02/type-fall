@@ -27,22 +27,22 @@ export default defineConfig({
       "name": "Type Fall",
       "icons": [
         {
-          "src": "/favicon192x192.png",
+          "src": "/logo/favicon192x192.png",
           "sizes": "192x192",
           "type": "image/png"
         },
         {
-          "src": "/favicon256x256.png",
+          "src": "/logo/favicon256x256.png",
           "sizes": "256x256",
           "type": "image/png"
         },
         {
-          "src": "/favicon384x384.png",
+          "src": "/logo/favicon384x384.png",
           "sizes": "384x384",
           "type": "image/png"
         },
         {
-          "src": "/favicon.png",
+          "src": "/logo/favicon.png",
           "sizes": "512x512",
           "type": "image/png"
         }
