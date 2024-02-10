@@ -1,39 +1,32 @@
 import { useEffect, useRef } from 'preact/compat';
-
 import { letterBoxCSS } from './styles';
-import { playSoundEffect } from '../../lib/playSoundEffect';
 
 export const LetterBlock = ({
   letter,
   duration,
   hit,
-  setHealth,
   frozen,
+  isDown,
   onClick,
+  health,
 }: {
   letter: string;
   duration: number;
   hit: boolean;
-  setHealth: (health: number) => void;
   frozen: boolean;
+  isDown: (down: number) => void;
   onClick: (event: MouseEvent) => void;
+  health: number;
 }) => {
-  const letterBlockRef = useRef<HTMLDivElement>(null);
-
-  let health = 100;
+  const letterBlockRef = useRef<HTMLButtonElement>(null);
 
   const handleAnimationFrame = () => {
     const letter = letterBlockRef.current;
+    const currentPosition = letter?.getBoundingClientRect();
 
-    if (letter) {
-      const currentPosition = letter.getBoundingClientRect();
-
-      if (currentPosition.bottom > 600 && health > 0) {
-        health -= 2;
-        playSoundEffect('lost-of-life.mp3', 0.03);
-
-        setHealth(health);
-      }
+    if (currentPosition && currentPosition.bottom >= (window.innerHeight + 10) && health > 0) {
+      isDown(Math.random());
+      letter?.click();
     }
 
     requestAnimationFrame(handleAnimationFrame);
@@ -44,7 +37,7 @@ export const LetterBlock = ({
   }, []);
 
   return (
-    <div
+    <button
       onClick={onClick}
       ref={letterBlockRef}
       id={letter}
@@ -61,6 +54,6 @@ export const LetterBlock = ({
       }}
     >
       {letter}
-    </div>
+    </button>
   );
 };
