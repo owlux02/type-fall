@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="https://github.com/martinval11/type-fall/blob/main/public/favicon.png?raw=true" width="100" />
+  <img src="https://github.com/martinval11/type-fall/blob/main/public/logo/favicon.png?raw=true" width="100" />
 </p>
 <p align="left">
     <h1 align="left">Type Fall</h1>
