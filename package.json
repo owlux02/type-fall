@@ -9,18 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@linaria/core": "^6.0.0",
+    "@linaria/core": "^6.2.0",
     "howler": "^2.2.4",
     "nes.css": "^2.3.0",
-    "preact": "^10.19.3",
+    "preact": "^10.23.2",
     "wouter": "^2.12.1"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.7.0",
+    "@preact/preset-vite": "^2.9.0",
     "@types/howler": "^2.2.11",
     "@wyw-in-js/vite": "^0.3.0",
-    "typescript": "^5.2.2",
-    "vite": "5.1",
-    "vite-plugin-pwa": "^0.18.0"
+    "typescript": "^5.5.4",
+    "vite": "~5.1.7",
+    "vite-plugin-pwa": "^0.18.2"
   }
 }
